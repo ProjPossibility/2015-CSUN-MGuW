@@ -1,4 +1,4 @@
-package SS12.com.rps;
+package ss12.com.rps;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
