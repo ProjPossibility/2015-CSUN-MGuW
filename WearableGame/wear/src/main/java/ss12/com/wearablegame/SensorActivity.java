@@ -7,21 +7,20 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
-
 
 public class SensorActivity extends Activity implements SensorEventListener {
 
     private TextView mTextView;
     private SensorManager sensorManager;
+    private Sensor accel;
     private float[] dataArray = new float[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(this,accel,sensorManager.SENSOR_DELAY_NORMAL);
         setContentView(R.layout.activity_sensor);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {

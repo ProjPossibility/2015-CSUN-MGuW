@@ -23,6 +23,8 @@ public class WearableDataConnection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wearable_data_connection);
         // Create a GoogleApiClient instance
+        // Used for communication between wearable and phone
+        // Best for use with DataMap
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
@@ -48,8 +50,9 @@ public class WearableDataConnection extends Activity {
     private void syncSampleDataItem() {
         if(mGoogleApiClient==null)
             return;
-
+        // Defines node for connection
         final PutDataMapRequest putRequest = PutDataMapRequest.create("/SAMPLE");
+
         final DataMap map = putRequest.getDataMap();
         map.putString("string_example", "Sample String");
         Wearable.DataApi.putDataItem(mGoogleApiClient,  putRequest.asPutDataRequest());
