@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 //this class is the single player game activity and controls all
 // single player game logic on the ui thread
@@ -13,6 +15,7 @@ public class SinglePlayerGame extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_game);
+
     }
 
     //determine next expected move for the user
