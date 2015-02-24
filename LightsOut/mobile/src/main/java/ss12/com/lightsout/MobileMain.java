@@ -52,7 +52,7 @@ public class MobileMain extends ActionBarActivity implements TextToSpeech.OnInit
 
         return super.onOptionsItemSelected(item);
     }
-
+    // I am using the activity main, to test if it workings with an event triggering it. 
     public void start(View view) {
         Button btnVibrate=(Button)findViewById(R.id.startButton);
         btnVibrate.setOnClickListener(new View.OnClickListener() {
