@@ -60,7 +60,7 @@ public class MobileMain extends ActionBarActivity implements TextToSpeech.OnInit
             public void onClick(View v) {
                 Intent intentVibrate =new Intent(getApplicationContext(),VibrateService.class);
                 startService(intentVibrate);
-                textToSpeechLogic.sayWords(MobileMain.this, "Start Fight Mother Fucker");
+                textToSpeechLogic.sayWords(MobileMain.this, "Start Fight");
                 SoundEng.playSound(getApplicationContext(), "fail");
                // setContentView(R.layout.activity_in_game);
                 TextView sayWhat = (TextView) findViewById(R.id.textView1);
