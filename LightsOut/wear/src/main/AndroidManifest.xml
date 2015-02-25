@@ -24,6 +24,21 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+        <service
+            android:name=".MessageListener"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name=".SinglePlayerGame"
+            android:label="@string/title_activity_single_player_game" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

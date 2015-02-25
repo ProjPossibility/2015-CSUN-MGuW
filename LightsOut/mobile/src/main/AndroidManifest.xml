@@ -17,22 +17,14 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".DataLayerListenerService"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
 
         <activity
             android:name=".SinglePlayerGame"
             android:label="@string/title_activity_in_game" >
+
         </activity>
 
-        <service
-            android:name=".ToWearable"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
+
     </application>
 
 </manifest>
