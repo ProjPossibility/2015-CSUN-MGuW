@@ -11,9 +11,11 @@
         android:id="@+id/text"/>
 
     <Button
+        android:onClick="tryAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text"
+        android:text = "Try Again"
         android:id="@+id/button"/>
 
     <TextView

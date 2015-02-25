@@ -1,7 +1,8 @@
 package ss12.com.lightsout;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,7 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
     private int size;
     private TextView tv;
     private Random random = new Random();
+    Vibrator myVibrate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ startRound();
      */
     private void startRound(){
         String action = random.nextInt(3)+"";
+        int actSound = Integer.parseInt(action);
+        playSound(actSound);
         Wearable.MessageApi.sendMessage(mGoogleApiClient,nodeId,action,null);
     }
 
@@ -71,9 +75,25 @@ startRound();
     }
 
     //auditory feedback on success or fail
-    private void playSound(){
+    private void playSound(int actSound){
         //general playing of sounds should occur here
         //probably will want to pass in sound name or path
+        switch (actSound)
+        {
+            case 0:
+                myVibrate.vibrate(new long[] { 0, 200, 0 }, 0);
+                testToSpeechLogic.sayWords("Punch");
+                break;
+            case 1: myVibrate.vibrate(new long[] { 0, 200, 0, 200, 0 }, 0);
+                testToSpeechLogic.sayWords("Counter");
+                break;
+            case 2: myVibrate.vibrate(new long[] { 0, 200, 0, 200, 0, 200, 0}, 0);
+                testToSpeechLogic.sayWords("Push");
+                break;
+            default:
+                break;
+        }
+
     }
 
     //haptic feedback on success or fail

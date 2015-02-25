@@ -2,7 +2,6 @@ package ss12.com.lightsout;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
-import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -27,11 +26,11 @@ public class testToSpeechLogic extends MobileMain
     }
 
     // Takes in a word through a string and the Class using the function for Text To Speech
-    public static void sayWords(MobileMain main, String word) {
+    public static void sayWords(String word) {
        // textToSpeech(main, word);
         //  soundEng.playSound(this, "fail");
-        Toast.makeText(main, word,
-                Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(main, word,
+       //         Toast.LENGTH_SHORT).show();
         testToSpeechLogic.ttobj.speak(word, TextToSpeech.QUEUE_FLUSH, null);
 
     }
