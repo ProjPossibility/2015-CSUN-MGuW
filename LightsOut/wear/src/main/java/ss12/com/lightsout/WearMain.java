@@ -1,7 +1,6 @@
 package ss12.com.lightsout;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
@@ -21,7 +20,5 @@ public class WearMain extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });
-        Intent intent = new Intent(this,SinglePlayerGame.class);
-        startActivity(intent);
     }
 }
