@@ -1,10 +1,15 @@
 package ss12.com.lightsout;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
+=======
+>>>>>>> origin/master
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,9 +39,13 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
     private int size;
     private TextView tv;
     private Random random = new Random();
+<<<<<<< HEAD
     private Vibrator vibrator;
     private TextToSpeech textToSpeech;
 
+=======
+    Vibrator myVibrate;
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +85,8 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
      */
     private void startRound(){
         String action = random.nextInt(3)+"";
+        int actSound = Integer.parseInt(action);
+        playSound(actSound);
         Wearable.MessageApi.sendMessage(mGoogleApiClient,nodeId,action,null);
     }
 
@@ -87,6 +98,7 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
         //looping image or gif while waiting for the service to return with success or fail
     }
 
+<<<<<<< HEAD
     //auditory and haptic feedback on success or fail
     private void respond(int action){
         //general playing of sounds should occur here
@@ -104,10 +116,32 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
             case 2: //push
                 vibrator.vibrate(new long[]{0, 200, 0, 200, 0, 200, 0}, 0);
                 textToSpeech.speak("Push",TextToSpeech.QUEUE_FLUSH,null);
+=======
+    //auditory feedback on success or fail
+    private void playSound(int actSound){
+        //general playing of sounds should occur here
+        //probably will want to pass in sound name or path
+        switch (actSound)
+        {
+            case 0:
+                myVibrate.vibrate(new long[] { 0, 200, 0 }, 0);
+                testToSpeechLogic.sayWords("Punch");
+                break;
+            case 1: myVibrate.vibrate(new long[] { 0, 200, 0, 200, 0 }, 0);
+                testToSpeechLogic.sayWords("Counter");
+                break;
+            case 2: myVibrate.vibrate(new long[] { 0, 200, 0, 200, 0, 200, 0}, 0);
+                testToSpeechLogic.sayWords("Push");
+>>>>>>> origin/master
                 break;
             default:
                 break;
         }
+<<<<<<< HEAD
+=======
+
+    }
+>>>>>>> origin/master
 
     }
 

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ss12.com.lightsout" >
+<<<<<<< HEAD
 
     <uses-permission android:name="android.permission.VIBRATE"/>
 
+=======
+    <uses-permission android:name="android.permission.VIBRATE"/>
+>>>>>>> origin/master
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -28,7 +32,16 @@
             android:label="@string/title_activity_in_game" >
         </activity>
 
+<<<<<<< HEAD
 
+=======
+        <service
+            android:name=".ToWearable"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service android:name=".VibrateService"/>
+>>>>>>> origin/master
     </application>
 
 </manifest>

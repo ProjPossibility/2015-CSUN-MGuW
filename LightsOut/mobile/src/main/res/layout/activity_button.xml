@@ -21,7 +21,7 @@
     <Button
         android:layout_width="240dp"
         android:layout_height="240dp"
-
+        android:onClick="onStart"
         android:background="@drawable/custom"
         android:text="FIGHT"
         android:textSize="25sp"
