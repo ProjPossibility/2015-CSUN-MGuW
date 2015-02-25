@@ -1,5 +1,8 @@
 package ss12.com.lightsout;
 
+import android.content.Context;
+import android.os.Vibrator;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +21,7 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 //this class is the single player game activity and controls all
@@ -30,12 +34,25 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
     private int size;
     private TextView tv;
     private Random random = new Random();
+    private Vibrator vibrator;
+    private TextToSpeech textToSpeech;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_game);
         createGoogleApiClient();
+        textToSpeech = new TextToSpeech(this,
+                new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if (status != TextToSpeech.ERROR) {
+                            textToSpeech.setLanguage(Locale.UK);
+                        }
+                    }
+                });
+        vibrator= (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
@@ -44,11 +61,11 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
         mGoogleApiClient.connect();
         tv = (TextView) findViewById(R.id.text);
         Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener( new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startRound();
-                Log.d(TAG,"push: "+nodeId);
+                Log.d(TAG, "push: " + nodeId);
             }
         });
     }
@@ -70,16 +87,28 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
         //looping image or gif while waiting for the service to return with success or fail
     }
 
-    //auditory feedback on success or fail
-    private void playSound(){
+    //auditory and haptic feedback on success or fail
+    private void respond(int action){
         //general playing of sounds should occur here
         //probably will want to pass in sound name or path
-    }
+        switch (action)
+        {
+            case 0://punch
+                vibrator.vibrate(new long[] { 0, 200, 0 }, 0);
+                textToSpeech.speak("Punch", TextToSpeech.QUEUE_FLUSH, null);
+                break;
+            case 1://counter
+                vibrator.vibrate(new long[] { 0, 200, 0, 200, 0 }, 0);
+                textToSpeech.speak("Counter", TextToSpeech.QUEUE_FLUSH, null);
+                break;
+            case 2: //push
+                vibrator.vibrate(new long[]{0, 200, 0, 200, 0, 200, 0}, 0);
+                textToSpeech.speak("Push",TextToSpeech.QUEUE_FLUSH,null);
+                break;
+            default:
+                break;
+        }
 
-    //haptic feedback on success or fail
-    private void vibrate(){
-        //general vibration should occur here
-        //probably will want to pass in an int describing preset vibration patterns
     }
 
     //method called when service returns success

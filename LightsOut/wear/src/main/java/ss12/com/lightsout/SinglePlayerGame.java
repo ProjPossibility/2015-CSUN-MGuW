@@ -1,6 +1,7 @@
 package ss12.com.lightsout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,6 +9,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.WindowManager;
@@ -34,6 +36,7 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
     private GoogleApiClient mGoogleApiClient;
     private final String TAG = "Single Player Game"; //tag for logging
     private TextView mTextView;
+    private Vibrator vibrator;
 
     //timer variables
     //begin time limit at 5 seconds
@@ -88,6 +91,9 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
 
         //create random number generator
         rand = new Random();
+
+        vibrator = vibrator= (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+
 
     }
 
@@ -171,6 +177,27 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
     }
 
     private void compareAxes(double x, double y, double z){
+
+    }
+
+    //auditory and haptic feedback on success or fail
+    private void respond(int action){
+        //general playing of sounds should occur here
+        //probably will want to pass in sound name or path
+        switch (action)
+        {
+            case 0://punch
+                vibrator.vibrate(new long[] { 0, 200, 0 }, 0);
+                break;
+            case 1: //counter
+                vibrator.vibrate(new long[] { 0, 200, 0, 200, 0 }, 0);
+                break;
+            case 2: //push
+                vibrator.vibrate(new long[]{0, 200, 0, 200, 0, 200, 0}, 0);
+                break;
+            default:
+                break;
+        }
 
     }
 
