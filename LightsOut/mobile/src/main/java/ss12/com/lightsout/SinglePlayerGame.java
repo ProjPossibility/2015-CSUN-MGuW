@@ -47,7 +47,7 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
         button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-startRound();
+                startRound();
                 Log.d(TAG,"push: "+nodeId);
             }
         });
