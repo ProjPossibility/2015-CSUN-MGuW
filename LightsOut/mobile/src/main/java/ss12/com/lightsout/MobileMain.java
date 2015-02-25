@@ -1,5 +1,6 @@
 package ss12.com.lightsout;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,8 @@ public class MobileMain extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Intent intent = new Intent(this,SinglePlayerGame.class);
+        startActivity(intent);
     }
 
     @Override
