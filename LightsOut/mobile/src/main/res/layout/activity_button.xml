@@ -30,5 +30,16 @@
         android:layout_alignLeft="@+id/leader"
         android:layout_alignStart="@+id/leader" />
 
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+
+        android:background="@drawable/custom"
+        android:text="STATS"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/leader"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
