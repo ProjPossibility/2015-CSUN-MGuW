@@ -1,16 +1,17 @@
 package ss12.com.lightsout;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -76,6 +77,8 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
      */
     private void startRound(){
         String action = random.nextInt(3)+"";
+        int actionMotion = Integer.parseInt(action);
+        respond(actionMotion);
         Wearable.MessageApi.sendMessage(mGoogleApiClient,nodeId,action,null);
     }
 
@@ -94,16 +97,19 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
         switch (action)
         {
             case 0://punch
-                vibrator.vibrate(new long[] { 0, 200, 0 }, 0);
+                vibrator.vibrate(new long[] { 0, 500, 0 }, -1);
                 textToSpeech.speak("Punch", TextToSpeech.QUEUE_FLUSH, null);
+                Toast.makeText(getApplicationContext(), "Punch", Toast.LENGTH_SHORT).show();
                 break;
             case 1://counter
-                vibrator.vibrate(new long[] { 0, 200, 0, 200, 0 }, 0);
+                vibrator.vibrate(new long[]{0, 400, 0, 0, 0, 0, 400, 0 , 0, 0, 0, 500}, -1);
                 textToSpeech.speak("Counter", TextToSpeech.QUEUE_FLUSH, null);
+                Toast.makeText(getApplicationContext(), "Counter", Toast.LENGTH_SHORT).show();
                 break;
             case 2: //push
-                vibrator.vibrate(new long[]{0, 200, 0, 200, 0, 200, 0}, 0);
+                vibrator.vibrate(new long[]{0, 400, 0, 0, 0, 0, 400,0 , 0, 0, 0, 400, 0 , 0 , 0, 500}, -1);
                 textToSpeech.speak("Push",TextToSpeech.QUEUE_FLUSH,null);
+                Toast.makeText(getApplicationContext(), "Push", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

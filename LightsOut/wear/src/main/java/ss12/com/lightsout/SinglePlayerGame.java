@@ -23,9 +23,6 @@ import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
-import com.google.android.gms.wearable.WearableListenerService;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;
@@ -160,6 +157,7 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         }
         Message msg = mHandler.obtainMessage(1,this);
         mHandler.sendMessageDelayed(msg, timeLimit);
+
     }
 
     //game logic for a successful attempt at a round
@@ -187,13 +185,13 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         switch (action)
         {
             case 0://punch
-                vibrator.vibrate(new long[] { 0, 200, 0 }, 0);
+                vibrator.vibrate(new long[]{0, 400,0, 0, 0, 0}, -1);
                 break;
             case 1: //counter
-                vibrator.vibrate(new long[] { 0, 200, 0, 200, 0 }, 0);
+                vibrator.vibrate(new long[]{0, 400, 0, 0, 0, 0, 400, 0 , 0, 0, 0, 500}, -1);
                 break;
             case 2: //push
-                vibrator.vibrate(new long[]{0, 200, 0, 200, 0, 200, 0}, 0);
+                vibrator.vibrate(new long[]{0, 400, 0, 0, 0, 0, 400,0 , 0, 0, 0, 400, 0 , 0 , 0, 500}, -1);
                 break;
             default:
                 break;
@@ -219,16 +217,35 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
         final String message = messageEvent.getPath();
+        final int actionVibration = Integer.parseInt(message);
+        respond(actionVibration);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Log.d("Wearable", "message received");
-                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                actionGiven(actionVibration);
+             //   Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
                 startRound(Integer.parseInt(message));
             }
         });
     }
-
+     public  void actionGiven(int action)
+     {
+         switch (action)
+         {
+             case 0://punch
+                 Toast.makeText(getApplicationContext(),"punch",Toast.LENGTH_SHORT).show();
+                 break;
+             case 1: //counter
+                 Toast.makeText(getApplicationContext(),"counter",Toast.LENGTH_SHORT).show();
+                 break;
+             case 2: //push
+                 Toast.makeText(getApplicationContext(),"push",Toast.LENGTH_SHORT).show();
+                 break;
+             default:
+                 break;
+         }
+     }
     @Override
     protected void onStop() {
         Wearable.MessageApi.removeListener(mGoogleApiClient, this);
