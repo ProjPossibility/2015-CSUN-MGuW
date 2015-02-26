@@ -27,8 +27,7 @@
         android:textStyle="bold"
         android:id="@+id/fight"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/leader"
-        android:layout_alignStart="@+id/leader" />
+ />
 
 
 </RelativeLayout>
