@@ -50,7 +50,7 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
     private double[] gravity =  {0,0,0};
     private double[] acceleration = {0,0,0};
     //max readings for the accelerometer per round
-    private int xMax=0,yMax=0,zMax=0;
+    private double xMax=0,yMax=0,zMax=0;
 
     //Time limit implemented through Handler
     static private Handler mHandler = new Handler() {
@@ -89,7 +89,7 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         //create random number generator
         rand = new Random();
 
-        vibrator = vibrator= (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator =  (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
 
 
     }
@@ -276,8 +276,19 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         acceleration[0] = dataArray[0] - gravity[0];
         acceleration[1] = dataArray[1] - gravity[1];
         acceleration[2] = dataArray[2] - gravity[2];
+
+        if(acceleration[0]>xMax)
+            xMax=acceleration[0];
+        if(acceleration[1]>yMax)
+            yMax=acceleration[1];
+        if(acceleration[2]>zMax)
+            zMax=acceleration[2];
+
         TextView textview = (TextView) findViewById(R.id.text);
-        textview.setText("x:"+acceleration[0]+"\ny: "+acceleration[1]+"\nz: "+acceleration[2]);
+        textview.setText("x:"+acceleration[0]+"\ny: "+acceleration[1]+"\nz: "+acceleration[2]
+            +"\nxMax: "+xMax+"\nyMax: "+yMax+"\nzMax: "+zMax);
+
+
         compareAxes(acceleration[0],acceleration[1],acceleration[2]);
     }
 
