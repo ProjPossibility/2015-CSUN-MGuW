@@ -57,11 +57,9 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 1337) {
-                //this only occurs when the message fires off after the delay meaning the user
-                //failed to perform the action in time
-                ((SinglePlayerGame) msg.obj).roundLoss();
-            }
+                //this triggers after a certain amount of time has passed defined by timeLimit
+                ((SinglePlayerGame) msg.obj).endRound(msg.what);
+
         }
     };
 
@@ -155,26 +153,57 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         if(timeLimit>1800) {
             timeLimit -= rand.nextInt(1000);
         }
-        Message msg = mHandler.obtainMessage(1,this);
+        Message msg = mHandler.obtainMessage(action,this);
         mHandler.sendMessageDelayed(msg, timeLimit);
+
+
+    }
+
+    private void endRound(int expectedAction){
+        //unregister Listener at the end of every round
+        sensorManager.unregisterListener(this,accel);
+
+        int actualAction = compareAxes();
+        if(actualAction==expectedAction){
+            //send message back to phone, 1 signifies win
+            Wearable.MessageApi.sendMessage(mGoogleApiClient,nodeId,"1",null);
+        }else{
+            //send message back to phone, 0 signifies loss
+            Wearable.MessageApi.sendMessage(mGoogleApiClient,nodeId,"0",null);        }
 
     }
 
     //game logic for a successful attempt at a round
     private void roundSuccess(){
-        //remove the pending message so that the message will not trigger a loss
-        mHandler.removeMessages(1337, this);
-        sensorManager.unregisterListener(this,accel);
+        /*//remove the pending message so that the message will not trigger a loss
+        mHandler.removeMessages(1337, this);*/
+
+
 
     }
 
     //game logic for an unsuccessful attempt at a round, called when the Handler receives the
     //delayed message
     private void roundLoss(){
-        sensorManager.unregisterListener(this, accel);
+
+
+
     }
 
-    private void compareAxes(double x, double y, double z){
+    //returns an int representing which of the 3 axes recorded the most activity
+    //this will be compared to what axis activity is expected on to determine if the round is won
+    //or lost
+    private int compareAxes(){
+        double maxAxis = Math.max(Math.max(xMax,yMax),zMax);
+        if(maxAxis==xMax){//x
+            return 0;
+        }
+        else if(maxAxis==yMax){//y
+                return 1;
+            }
+        else{//z
+            return 2;
+        }
 
     }
 
@@ -284,12 +313,11 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
         if(acceleration[2]>zMax)
             zMax=acceleration[2];
 
+        /*TextView display of accelerometer data
         TextView textview = (TextView) findViewById(R.id.text);
         textview.setText("x:"+acceleration[0]+"\ny: "+acceleration[1]+"\nz: "+acceleration[2]
             +"\nxMax: "+xMax+"\nyMax: "+yMax+"\nzMax: "+zMax);
-
-
-        compareAxes(acceleration[0],acceleration[1],acceleration[2]);
+            */
     }
 
     @Override
