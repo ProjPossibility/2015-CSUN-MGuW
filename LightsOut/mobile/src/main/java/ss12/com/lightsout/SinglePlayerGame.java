@@ -219,6 +219,8 @@ public class SinglePlayerGame extends ActionBarActivity implements MessageApi.Me
                 tv.setText(message);
             }
         });
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
