@@ -312,12 +312,13 @@ public class SinglePlayerGame extends Activity implements MessageApi.MessageList
             yMax=acceleration[1];
         if(acceleration[2]>zMax)
             zMax=acceleration[2];
+        
 
-        /*TextView display of accelerometer data
+        //TextView display of accelerometer data
         TextView textview = (TextView) findViewById(R.id.text);
         textview.setText("x:"+acceleration[0]+"\ny: "+acceleration[1]+"\nz: "+acceleration[2]
             +"\nxMax: "+xMax+"\nyMax: "+yMax+"\nzMax: "+zMax);
-            */
+
     }
 
     @Override

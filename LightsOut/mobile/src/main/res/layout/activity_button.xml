@@ -26,8 +26,8 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:id="@+id/fight"
-        android:layout_below="@+id/textView"
- />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
